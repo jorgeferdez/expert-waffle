@@ -45,5 +45,5 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          # `tag_name` is automatically provided by the workflow trigger.
+          tag_name: release_1
           files: dist/my-app # The path to the executable created by PyInstaller.
