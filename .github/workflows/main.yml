@@ -39,7 +39,7 @@ jobs:
           # Replace `your_main_script.py` with the path to your main Python file.
           # The `--onefile` flag creates a single executable file.
           # The `--name` flag sets the name of the output executable.
-          pyinstaller --onefile --name "my-app" __main__.py
+          pyinstaller --collect-all ortools --onefile --name "my-app" __main__.py
   
       # Step 5: Create a new release and upload the executable as an asset.
       - name: Create Release
