@@ -13,7 +13,7 @@ permissions:
 jobs:
   build-and-release:
     # Use an Ubuntu runner for this job.
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       # Step 1: Checkout the repository's code. This is necessary so the workflow can access your files.
