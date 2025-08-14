@@ -1,0 +1,48 @@
+# This workflow is triggered whenever a new tag is pushed to the repository.
+name: PyInstaller Release
+
+on:
+  push:
+    tags:
+      - 'v*' # This will trigger the workflow for any tag that starts with 'v', like v1.0, v1.2.3, etc.
+
+jobs:
+  build-and-release:
+    # Use an Ubuntu runner for this job.
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository's code. This is necessary so the workflow can access your files.
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up a Python environment. This ensures PyInstaller can be installed and run.
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.3' # Specify the Python version you want to use for the build.
+
+      # Step 3: Install the project dependencies, including PyInstaller.
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt # Assuming your project's dependencies are in a requirements.txt file.
+          pip install pyinstaller # Explicitly install PyInstaller if it's not in requirements.txt.
+
+      # Step 4: Build the executable using PyInstaller.
+      - name: Build with PyInstaller
+        run: |
+          # Replace `your_main_script.py` with the path to your main Python file.
+          # The `--onefile` flag creates a single executable file.
+          # The `--name` flag sets the name of the output executable.
+          pyinstaller --onefile --name "my-app" __main__.py
+
+      # Step 5: Create a new release and upload the executable as an asset.
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          # `tag_name` is automatically provided by the workflow trigger.
+          files: dist/my-app # The path to the executable created by PyInstaller.
+        env:
+          # The GITHUB_TOKEN is a built-in token that has permission to create releases.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
