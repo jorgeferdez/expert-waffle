@@ -40,6 +40,9 @@ jobs:
           # The `--name` flag sets the name of the output executable.
           pyinstaller --onefile --name "my-app" __main__.py
 
+      - name: List files in dist directory
+        run: ls -l dist
+  
       # Step 5: Create a new release and upload the executable as an asset.
       - name: Create Release
         uses: softprops/action-gh-release@v2
