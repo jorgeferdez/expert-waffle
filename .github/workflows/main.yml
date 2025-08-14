@@ -1,5 +1,5 @@
 # This workflow is triggered whenever a new tag is pushed to the repository.
-name: PyInstaller Release
+name: py_release
 
 on:
   push:
@@ -39,9 +39,6 @@ jobs:
           # The `--onefile` flag creates a single executable file.
           # The `--name` flag sets the name of the output executable.
           pyinstaller --onefile --name "my-app" __main__.py
-
-      - name: List files in dist directory
-        run: ls -l dist
   
       # Step 5: Create a new release and upload the executable as an asset.
       - name: Create Release
@@ -49,6 +46,3 @@ jobs:
         with:
           # `tag_name` is automatically provided by the workflow trigger.
           files: dist/my-app # The path to the executable created by PyInstaller.
-        env:
-          # The GITHUB_TOKEN is a built-in token that has permission to create releases.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
