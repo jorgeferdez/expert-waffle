@@ -4,7 +4,7 @@ name: py_release
 on:
   push:
     tags:
-      - 'main*' # This will trigger the workflow for any tag that starts with 'v', like v1.0, v1.2.3, etc.
+      - 'v*' # This will trigger the workflow for any tag that starts with 'v', like v1.0, v1.2.3, etc.
   workflow_dispatch:
   
 permissions:
